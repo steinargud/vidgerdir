@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h2>Ný viðgerð</h2>
+  <form method="post" enctype="multipart/form-data" class="form-grid">
+    <label for="title">Viðgerð / verk</label>
+    <input id="title" name="title" required>
+
+    <label for="description">Lýsing</label>
+    <textarea id="description" name="description" rows="4" required></textarea>
+
+    <label for="cost">Kostnaður (ISK)</label>
+    <input id="cost" name="cost" type="number" step="0.01" min="0" required>
+
+    <label for="repair_date">Dagsetning</label>
+    <input id="repair_date" name="repair_date" type="date" required>
+
+    <label for="image">Mynd (valfrjálst)</label>
+    <input id="image" name="image" type="file" accept="image/*">
+
+    <button type="submit">Vista viðgerð</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Skráðar viðgerðir</h2>
+  <p class="total">Heildarkostnaður: <strong>{{ "{:,.0f}".format(total_cost).replace(',', '.') }} kr.</strong></p>
+
+  {% if repairs %}
+    <div class="cards">
+      {% for repair in repairs %}
+        <article class="card">
+          {% if repair.image_path %}
+            <img src="{{ url_for('static', filename=repair.image_path) }}" alt="Mynd af verki {{ repair.title }}">
+          {% endif %}
+          <div class="card-content">
+            <h3>{{ repair.title }}</h3>
+            <p>{{ repair.description }}</p>
+            <p><strong>Kostnaður:</strong> {{ "{:,.0f}".format(repair.cost).replace(',', '.') }} kr.</p>
+            <p><strong>Dagsetning:</strong> {{ repair.repair_date }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Engar viðgerðir skráðar ennþá.</p>
+  {% endif %}
+</section>
+{% endblock %}
