@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Innskráning{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h2>Innskráning</h2>
+  <p>Notaðu sjálfgefið aðgangsupplýsingar: <strong>eigandi / hus1234</strong></p>
+  <form method="post" class="form-grid">
+    <label for="username">Notendanafn</label>
+    <input id="username" name="username" required>
+
+    <label for="password">Lykilorð</label>
+    <input id="password" type="password" name="password" required>
+
+    <button type="submit">Skrá inn</button>
+  </form>
+</section>
+{% endblock %}
